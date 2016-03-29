@@ -28,7 +28,7 @@ $scope.groups= $scope.getGroups().then(function(data) {
 $scope.createGroup = function(group){
   group.messages = [];
   group.user = loginSvc.getCurrentUser();
-  // console.log(group);
+  console.log(group);
   groupSvc.createGroup(group);
   groupSvc.getGroups();
 };

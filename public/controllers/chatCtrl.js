@@ -8,11 +8,14 @@ angular.module('myApp')
 
   $scope.getMessages = function(){
     return chatSvc.getMessages().then(function(data){
+        console.log(data);
         if(!data){
           return [];
         }else{
-          return data;
+
+          return data.reverse();
         }
+
       });
   };
 
@@ -42,14 +45,22 @@ angular.module('myApp')
       messageText.user = loginSvc.getCurrentUser();
       chatSvc.postMessage(messageText);
       $scope.$emit('client message', messageText);
-    }
+      messageText = {};
+    } else{
+      return;
+      }
+
     $scope.getMessages();
 
     };
 
 
     $scope.$on('new message', function(event, msg){
+      // console.log('almost there!');
+      // console.log(msg);
       $scope.messages = $scope.getMessages().then(function(data) {
+        // console.log(data);
+        $scope.messages.Location = msg.Location;
         $scope.messages = data;
 
       });

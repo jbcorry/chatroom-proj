@@ -102,6 +102,7 @@ io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('ctrl message', function(msg){
     io.emit('message from socket', msg);
+
   });
   socket.on('delete this message', function(index){
 

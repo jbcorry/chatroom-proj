@@ -194,3 +194,12 @@
   display: flex;
   justify-content: space-between;
 }
+
+.img-preview {
+  height: 100px;
+  width: 100px;
+}
+
+.hide {
+  display: none;
+}

@@ -58,12 +58,10 @@ module.exports = {
     });
   },
   postImage: function(req, res) {
-
     // var exports = module.exports = {};
     // exports.saveImage = function (req, res) {
   var buf = new Buffer(req.body.imageBody.replace(/^data:image\/\w+;base64,/, ""), 'base64');
   console.log('saving image');
-  console.log(AWS.config);
   // bucketName var below crates a "folder" for each user
   var bucketName = 'northpoint-test-bucket/' /*+ req.body.userEmail*/;
   // console.log(buf);
@@ -81,7 +79,7 @@ module.exports = {
       return res.status(500).send(err);
     }
     else {
-      req.json(data);
+      res.json(data);
       console.log('uploading');
     }
   });

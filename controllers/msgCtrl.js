@@ -4,12 +4,14 @@ module.exports = {
 
 
 addMessage: function(req, res) {
+  // console.log(req.body);
   var msg = {
     message: req.body.message,
     date: new Date(),
-    user: req.body.user
+    user: req.body.user,
+    location: req.body.Location
   };
-  console.log(msg);
+  // console.log(msg);
   new Message(msg).save(function(err, data){
     if (err){
       res.status(500).send(err);
@@ -42,6 +44,6 @@ deleteAll: function(req, res) {
       res.status(200).json(resp);
     }
   });
-}
+},
 
 };

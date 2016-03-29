@@ -5,7 +5,7 @@
 
   <div class='group-name'>{{group.name}}</div>
 
-<form action='' onsubmit='this.reset()' ng-submit='sendMessage(threadText)'>
+<form onsubmit='this.reset()' ng-submit='sendMessage(threadText)'>
 
   <div class='new-thread-container'>
 
@@ -27,13 +27,19 @@
 
   <div id="message-box" ng-repeat='message in messages track by $index'>
     {{message.user.username}}:
-    {{message.message}}
-    <button class='delete-all-btn' ng-click='deleteMessage(message._id, messages.indexOf(message))'>x</button>
+
+
+
+
+<img class='img-preview' src="{{message.location}}">
+{{message.message}}
+        <button class='delete-all-btn' ng-click='deleteMessage(message._id, messages.indexOf(message))'>x</button>
+
   </div>
 
-  <div ng-repeat="image in images">
+  <!-- <div ng-repeat="image in images">
      <img ng-src="{{image.Location}}" style="max-width: 300px;">
- </div>
+ </div> -->
 
 
 
