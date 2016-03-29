@@ -1,5 +1,15 @@
 var Group = require('../schemas/groupSchema');
+
+var AWS = require('aws-sdk');
 var keys = require('../keys.js');
+
+console.log('in groupController');
+AWS.config.update({
+    accessKeyId: keys.amazonAccess,
+    secretAccessKey: keys.amazonSecret,
+    region: keys.amazonRegion
+});
+var s3 = new AWS.S3();
 
 module.exports = {
 
@@ -48,21 +58,15 @@ module.exports = {
     });
   },
   postImage: function(req, res) {
-    var AWS = require('aws-sdk');
-    console.log('in groupController');
-    AWS.config.update({
-        accessKeyId: keys.amazonAccess,
-        secretAccessKey: keys.amazonSecret,
-        region: keys.amazonRegion
-    });
-    var keys = require('./keys.js');
-    var s3 = new AWS.S3();
-    var exports = module.exports = {};
-    exports.saveImage = function (req, res) {
-  buf = new Buffer(req.body.imageBody.replace(/^data:image\/\w+;base64,/, ""), 'base64');
 
+    // var exports = module.exports = {};
+    // exports.saveImage = function (req, res) {
+  var buf = new Buffer(req.body.imageBody.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+  console.log('saving image');
+  console.log(AWS.config);
   // bucketName var below crates a "folder" for each user
-  var bucketName = 'northpoint-test-bucket/' + req.body.userEmail;
+  var bucketName = 'northpoint-test-bucket/' /*+ req.body.userEmail*/;
+  // console.log(buf);
   var params = {
       Bucket: bucketName,
       Key: req.body.imageName,
@@ -70,13 +74,18 @@ module.exports = {
       ContentType: 'image/' + req.body.imageExtension,
       ACL: 'public-read',
   };
+  // console.log(s3.config);
   s3.upload(params, function (err, data) {
-    if (err) return res.status(500).send(err);
+    if (err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
     else {
       req.json(data);
+      console.log('uploading');
     }
   });
-};
+
 }
 
 

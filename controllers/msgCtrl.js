@@ -21,7 +21,6 @@ addMessage: function(req, res) {
 
 getMessages: function(req, res) {
   Message.find().populate('user').exec().then(function(response){
-    console.log(response);
     res.send(response);
   });
 },

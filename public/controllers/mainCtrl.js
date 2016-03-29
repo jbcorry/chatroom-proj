@@ -1,9 +1,7 @@
 angular.module('myApp')
 .controller('mainCtrl', function($scope, mainSvc, loginSvc, $state) {
 
-//s3 stuff
 
- 
 //log in and out functions
 
   $scope.currentUser = loginSvc.getCurrentUser();

@@ -1,6 +1,10 @@
 angular.module('myApp')
 .controller('chatCtrl', function($scope, chatSvc, loginSvc) {
 
+  //s3 stuff
+
+  $scope.images = [];
+
 
   $scope.getMessages = function(){
     return chatSvc.getMessages().then(function(data){

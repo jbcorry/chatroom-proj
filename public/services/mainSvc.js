@@ -1,5 +1,5 @@
 angular.module('myApp')
-.service('mainSvc', function() {
+.service('mainSvc', function($http) {
 
   //amazon s3 stuff
 
@@ -13,7 +13,7 @@ angular.module('myApp')
         imageExtension: imageExtension,
         userEmail: 'jakecorry123@gmail.com'
       };
-
+      console.log(newImage);
       return $http.post('/api/newimage', newImage);
     };
 

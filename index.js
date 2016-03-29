@@ -17,7 +17,8 @@ var User = require('./schemas/userSchema.js');
 var groupCtrl = require('./controllers/groupCtrl.js');
 var userCtrl = require('./controllers/userCtrl.js');
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(passport.initialize());
 app.use(session({
   secret: "this is secret"
