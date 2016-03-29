@@ -1,56 +1,18 @@
-<!-- <!doctype html>
-<html>
-  <head>
-    <title>Socket.IO chat</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      /*div { background-color: #dadada; height: 200px; width: 100%;}*/
-      form { background: #000; padding: 3px; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-    </style>
-  </head>
-  <body>
-    <div>
-    <ul id="messages"></ul>
-  </div>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
-    <button ui-sref='home'>Return to Homepage</button>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-  var socket = io();
-  $('form').submit(function(){
-    socket.emit('chat message', $('#m').val());
-    $('#m').val('');
-    return false;
-  });
-  socket.on('chat message', function(msg){
-    $('#messages').append($('<li>').text(msg));
-  });
-</script>
-  </body>
-</html> -->
+
 <section class='chatroom'>
 
 <section class='new-msg'>
 
   <div class='group-name'>{{group.name}}</div>
 
-<form ng-submit='sendMessage(threadText)'>
+<form action='' onsubmit='this.reset()' ng-submit='sendMessage(threadText)'>
 
   <div class='new-thread-container'>
 
       <input id="m" type='text' ng-model='threadText.message' ng-submit='sendMessage(threadText)' placeholder="insert text here..."class='thread-text'>
 
     <div class='buttons'>
-        <input type='file' ng-model='attachedFile' allow='text/*'>
+        <input type='file' ng-model='attachedFile' fileread allow='image/*'>
 
         <input type='submit' value='Send'>
     </div>
@@ -61,21 +23,28 @@
 
 </section>
 <section class='thread-container'>
+<section class='thread-box'>
 
   <div id="message-box" ng-repeat='message in messages track by $index'>
+    {{message.user.username}}:
     {{message.message}}
-    <button class='delete-btn' ng-click='deleteMessage(message._id, messages.indexOf(message))'>x</button>
+    <button class='delete-all-btn' ng-click='deleteMessage(message._id, messages.indexOf(message))'>x</button>
   </div>
 
+  <!-- <div ng-repeat="image in images">
+     <img ng-src="{{image.Location}}" style="max-width: 300px;">
+   </div> -->
 
 
 
 
 
+</section>
+<button clas='delete-btn' ng-click='deleteAll()'>Clear Chat</button>
 </section>
 <!-- <button class='delete-all' ng-click='deleteAll()'>Delete all</button> -->
 </section>
-<button ui-sref='home'>Return to Homepage</button>
+<button class='home-btn' ui-sref='home'>Return to Homepage</button>
 
 <!--
 <body>

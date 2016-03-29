@@ -5,34 +5,33 @@ angular.module('myApp', ['ui.router'])
   $stateProvider
   .state('home', {
     url: '/home',
-    templateUrl: '/views/home.html',
-    controller: 'mainCtrl'
+    templateUrl: '/views/home.html'
   })
 
   .state('groups', {
     url: '/groups',
-    templateUrl: '/views/groups.html',
-    controller: 'mainCtrl'
+    templateUrl: '/views/groups.html'
   })
   .state('about', {
     url: '/about',
-    templateUrl: '/views/about.html',
-    controller: 'mainCtrl'
+    templateUrl: '/views/about.html'
   })
   .state('contact', {
     url: '/contact',
-    templateUrl: '/views/contact.html',
-    controller: 'mainCtrl'
+    templateUrl: '/views/contact.html'
   })
   .state('login', {
     url: '/login',
-    templateUrl: '/views/login.html',
-    controller: 'mainCtrl'
+    templateUrl: '/views/login.html'
   })
   .state('chat', {
     url: '/chatroom',
     templateUrl: '/views/chatroom.html',
     controller: 'chatCtrl'
+  })
+  .state('new-user', {
+    url: '/create-user',
+    templateUrl: '/views/new-user.html'
   });
 
 $urlRouterProvider.otherwise('/home');

@@ -12,7 +12,10 @@
         <div class='logo'><img id='nba' src='/images/nba.jpeg'></div>
 
       <div class='tab-container'>
-        <div class='tabs' ng-repeat='tab in tabs' ng-click=''><a id='tab-links' ui-sref='{{tab.view}}'>{{tab.name}}</a></div>
+        <div class='tabs' ng-repeat='tab in tabsIn' ng-click='' ng-show='loggedIn'><a id='tab-links' ui-sref='{{tab.view}}'>{{tab.name}}</a></div>
+        <div class='tabs' ng-repeat='tab in tabsOut' ng-click='' ng-hide='loggedIn'><a id='tab-links' ui-sref='{{tab.view}}'>{{tab.name}}</a></div>
+
+        <div class='tabs'><a id='tab-links' ng-click='logout()'ng-show='loggedIn'>Logout</a></div>
       </div>
 
     </div>
@@ -43,8 +46,13 @@
     <script src='controllers/mainCtrl.js'></script>
     <script src='services/mainSvc.js'></script>
     <script src='directives/groupDirective.js'></script>
+    <script src='directives/s3Directive.js'></script>
     <script src='controllers/chatCtrl.js'></script>
+    <script src='controllers/groupCtrl.js'></script>
     <script src='services/chatSvc.js'></script>
+    <script src='services/loginSvc.js'></script>
+    <script src='services/groupSvc.js'></script>
+
     <!-- <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
     var socket = io();

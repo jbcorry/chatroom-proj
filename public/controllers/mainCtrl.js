@@ -1,6 +1,44 @@
 angular.module('myApp')
-.controller('mainCtrl', function($scope, mainSvc) {
+.controller('mainCtrl', function($scope, mainSvc, loginSvc, $state) {
 
+//s3 stuff
+
+ 
+//log in and out functions
+
+  $scope.currentUser = loginSvc.getCurrentUser();
+  // console.log($scope.currentUser);
+
+  $scope.createUser = function(username, password) {
+    if(!username && !password) {
+      alert('Please create a username and password');
+    }
+    else {
+      loginSvc.createUser(username, password);
+      loginSvc.signIn(username, password);
+      $state.go('home');
+    }
+
+  };
+
+  $scope.signIn = function(username, password) {
+    if(!username && !password) {
+      alert('Please enter your username and password');
+    }
+    else {
+      $scope.loggedIn = true;
+      loginSvc.signIn(username, password);
+      $state.go('home');
+    }
+  };
+
+  $scope.logout = function() {
+    $scope.loggedIn = false;
+    loginSvc.logout();
+    $state.go('login');
+  };
+
+//socket stuff
 
   $scope.$on('delete message', function(event, index) {
     socket.emit('delete this message', index);
@@ -13,15 +51,17 @@ angular.module('myApp')
       //listen for socket events
 
       socket.on('message from socket', function(msg){
-        console.log(msg);
         $scope.$broadcast('new message', msg);
-        console.log('message sent');
       });
 
 
 
 
-  $scope.tabs = mainSvc.getTabs();
+  //other
+
+
+  $scope.tabsIn = mainSvc.getTabsIn();
+  $scope.tabsOut = mainSvc.getTabsOut();
   $scope.submit = {
     name: 'submit',
     view: 'submit'
@@ -32,8 +72,10 @@ $scope.show = true;
   $scope.toggle = function() {
     $scope.show = !$scope.show;
   };
-  $scope.groups = mainSvc.getGroups();
+  // $scope.groups = mainSvc.getGroups();
 
 $scope.contactList = mainSvc.getContactList();
+
+$scope.createList = function(){};
 
 });

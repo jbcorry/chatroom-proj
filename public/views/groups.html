@@ -1,15 +1,23 @@
-<section class='main-group-container'>
+<section class='main-group-container' ng-controller='groupCtrl'>
 
 
+<input class='group-filter' type='text' ng-model='searchGroups'>
 
-
-<div class='group-container' ng-repeat='group in groups'>
+<div class='group-container' ng-repeat='group in groups | filter: searchGroups'>
 
 
 
       <group group='group'></group>
+</div>
+<button class='new-group-btn' ng-click='toggleGroup()' ng-show='!newGroup'>Create a Group!</button>
+<form class='new-group-form' action='' onsubmit='this.reset()' ng-submit='createGroup(group)' ng-show='newGroup'>
 
+  <input type='text' ng-model='group.name'>
 
+  <input type='password' ng-model='group.password'>
 
-
+  <textarea class='group-description' ng-model='group.description'></textarea>
+    <div class='buttons'>
+      <input type='submit' value='Make Group'>
+    </div>
 </section>

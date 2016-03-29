@@ -16,13 +16,18 @@
       It's the private and simple way to communicate with files, pictures and text with anyone!
   </span>
 
-  <div>
+<br>
+  <button class='home-btn' ui-sref='groups' ng-show='loggedIn'>Find or create a group!</button>
+
+
+  <div ng-hide='loggedIn'>
 
     <h5 class='button-header'>Ready to Start?</h5>
 
-          <button ng-click='' ui-sref='login'>Click Here to create a user!</button>
 
-          <button ng-click='' ui-sref='login'>Or here if you already have!</button>
+          <button class='home-btn' ng-click='' ui-sref='new-user'>Click Here to create a user!</button>
+
+          <button ng-click='' class='home-btn' ui-sref='login'>Or here if you already have!</button>
           <!-- <a ui-sref='{{submit.view}}'><button class='submit-btn'>Submit a file</button></a> -->
 
   </div>

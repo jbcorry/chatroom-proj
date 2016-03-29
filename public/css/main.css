@@ -1,5 +1,8 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300%7COswald:400,300,700);
 
-
+* {
+  font-family: 'Oswald';
+}
 
 /* navbar */
 
@@ -37,6 +40,7 @@
 .tabs {
   margin: 10px;
   color: black;
+  font-family: 'Oswald';
 }
 
 /* footer */
@@ -148,6 +152,10 @@
 
 /* chatroom-view */
 
+.home-btn {
+  margin: 10px;
+}
+
 .chatroom {
   display: flex;
   justify-content: space-around;
@@ -158,19 +166,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 45%;
 }
 
 .thread-text {
   width: 100%;
 }
 
-.thread-container {
+.thread-box {
   background-color: #f6f6f6;
-  width: 45%;
+  width: 100%;
   height: 400px;
   margin: 10px;
   overflow-y: scroll;
 
+}
+
+.thread-container {
+  width: 45%;
+  text-align: center;
 }
 
 #message-box {

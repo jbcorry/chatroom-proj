@@ -1,7 +1,24 @@
 angular.module('myApp')
 .service('mainSvc', function() {
 
-  var tabs = [
+  //amazon s3 stuff
+
+  this.storeImage = function (imageData, fileName) {
+      var imageExtension = imageData.split(';')[0].split('/');
+      imageExtension = imageExtension[imageExtension.length - 1];
+      console.log('in the service');
+      var newImage = {
+        imageName: fileName,
+        imageBody: imageData,
+        imageExtension: imageExtension,
+        userEmail: 'jakecorry123@gmail.com'
+      };
+
+      return $http.post('/api/newimage', newImage);
+    };
+
+
+  var tabsIn = [
     {
       name: 'Home',
       view: 'home',
@@ -13,15 +30,25 @@ angular.module('myApp')
     {
       name: 'Contact',
       view: 'contact',
-    },
+    }
+
+  ];
+
+  var tabsOut = [
     {
+      name: 'Home',
+      view: 'home',
+    },{
       name: 'Login/Sign up',
       view: 'login',
     }
   ];
 
-  this.getTabs = function() {
-    return tabs;
+  this.getTabsIn = function() {
+    return tabsIn;
+  };
+  this.getTabsOut = function() {
+    return tabsOut;
   };
 
   var groups = [

@@ -15,7 +15,7 @@ angular.module('myApp')
   };
 
   this.postMessage = function(msg) {
-
+    // console.log(msg);
     $http.post(baseUrl + 'chatroom/', msg);
 
   };
@@ -23,6 +23,12 @@ angular.module('myApp')
   this.deleteMessage = function(id) {
 
     $http.delete(baseUrl + 'chatroom/' + id);
+
+  };
+
+  this.deleteAll = function() {
+
+    $http.delete(baseUrl + 'chatroom/');
 
   };
 

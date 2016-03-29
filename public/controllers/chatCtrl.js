@@ -1,5 +1,5 @@
 angular.module('myApp')
-.controller('chatCtrl', function($scope, chatSvc) {
+.controller('chatCtrl', function($scope, chatSvc, loginSvc) {
 
 
   $scope.getMessages = function(){
@@ -13,14 +13,19 @@ angular.module('myApp')
   };
 
 
+
   $scope.deleteMessage = function(id, index) {
     chatSvc.deleteMessage(id);
     // $scope.$apply(function() {
       $scope.messages.splice(index, 1);
-      console.log(id);
       $scope.$emit('delete message', index);
 
     // });
+  };
+
+  $scope.deleteAll = function() {
+    chatSvc.deleteAll();
+    $scope.messages = [];
   };
 
 
@@ -30,9 +35,9 @@ angular.module('myApp')
 
     $scope.sendMessage = function(messageText) {
       if (messageText) {
-      $scope.postMessage(messageText);
+      messageText.user = loginSvc.getCurrentUser();
+      chatSvc.postMessage(messageText);
       $scope.$emit('client message', messageText);
-      messageText = '';
     }
     $scope.getMessages();
 
@@ -40,22 +45,17 @@ angular.module('myApp')
 
 
     $scope.$on('new message', function(event, msg){
-      console.log('new message received');
-      $scope.getMessages();
-      $scope.$apply(function() {
-        $scope.messages.push(msg);
+      $scope.messages = $scope.getMessages().then(function(data) {
+        $scope.messages = data;
 
       });
+      // $scope.$apply(function() {
+      //
+      // });
       // getMessages();
 
     });
 
-
-
-    $scope.postMessage = function(msg) {
-      console.log(msg);
-      chatSvc.postMessage(msg);
-    };
 
     // if ($scope.attachedFile) {
     //
