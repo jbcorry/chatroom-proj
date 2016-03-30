@@ -1,7 +1,7 @@
 var Group = require('../schemas/groupSchema');
 
 var AWS = require('aws-sdk');
-var keys = require('../keys.js');
+var keys = require('../config.js');
 var fs = require('fs');
 
 AWS.config.update({
