@@ -30,7 +30,7 @@ this.createGroup = function(group) {
 
 this.deleteGroup = function(id) {
   $http.delete(baseUrl + 'groups/' + id);
-}
+};
 
 
 

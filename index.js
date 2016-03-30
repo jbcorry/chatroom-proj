@@ -10,7 +10,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mongoose = require('mongoose');
-var mongoUri = 'mongodb://localhost:27017/app-data';
+var mongoUri = 'mongodb://jbcorry:morton@ds011790.mlab.com:11790/personal-proj';
 
 var msgCtrl = require('./controllers/msgCtrl.js');
 var User = require('./schemas/userSchema.js');
