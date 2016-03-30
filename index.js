@@ -6,7 +6,7 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
 // var FacebookStrategy = require('passport-facebook').Strategy;
-var keys = process.env.KEY || require('./keys.js');
+var keys = require('./config.js');
 var bodyParser = require('body-parser');
 
 var app = express();
