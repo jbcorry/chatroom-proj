@@ -2,6 +2,7 @@ var Group = require('../schemas/groupSchema');
 
 var AWS = require('aws-sdk');
 var keys = require('../keys.js');
+var fs = require('fs');
 
 console.log('in groupController');
 AWS.config.update({
@@ -9,6 +10,8 @@ AWS.config.update({
     secretAccessKey: keys.amazonSecret,
     region: keys.amazonRegion
 });
+
+
 var s3 = new AWS.S3();
 
 module.exports = {
@@ -58,7 +61,14 @@ module.exports = {
     });
   },
   postImage: function(req, res) {
-    // var exports = module.exports = {};
+    // var fileStream = fs.createReadStream(req.body);
+    // fileStream.on('error', function(err) {
+    //   if (err) { throw err; }
+    // });
+    //
+    // fileStream.on('open', function() {});
+
+
     // exports.saveImage = function (req, res) {
   var buf = new Buffer(req.body.imageBody.replace(/^data:image\/\w+;base64,/, ""), 'base64');
   console.log('saving image');

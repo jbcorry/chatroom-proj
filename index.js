@@ -20,8 +20,11 @@ var userCtrl = require('./controllers/userCtrl.js');
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(passport.initialize());
+app.use(passport.session());
 app.use(session({
-  secret: "this is secret"
+  secret: "this is secret",
+  resave: true,
+  saveUninitialized: true
 }));
 
 //image posting

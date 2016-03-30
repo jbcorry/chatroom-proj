@@ -4,7 +4,8 @@ module.exports = {
 
 
 addMessage: function(req, res) {
-  // console.log(req.body);
+  console.log(req.body.user);
+
   var msg = {
     message: req.body.message,
     date: new Date(),

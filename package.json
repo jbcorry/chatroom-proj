@@ -9,7 +9,6 @@
     "cors": "^2.7.1",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
-    "express-sessions": "^1.0.5",
     "mongodb": "^2.1.11",
     "mongoose": "^4.4.10",
     "passport": "^0.3.2",

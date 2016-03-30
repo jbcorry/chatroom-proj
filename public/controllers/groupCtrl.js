@@ -42,5 +42,11 @@ $scope.checkPassword = function(password) {
   }
 };
 
+$scope.deleteGroup = function(id, index) {
+    console.log('in ctrl');
+    groupSvc.deleteGroup(id);
+    $scope.groups.splice(index, 1);
+};
+
 
 });

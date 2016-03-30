@@ -3,16 +3,19 @@ angular.module('myApp')
 
   //s3 stuff
 
-  $scope.images = [];
-
+var removeHtml = function(obj) {
+  if (!obj.location) {
+    $('.img').remove();
+  }
+};
 
   $scope.getMessages = function(){
     return chatSvc.getMessages().then(function(data){
-        console.log(data);
         if(!data){
           return [];
         }else{
-
+          // console.log(data);
+          // data.forEach(removeHtml);
           return data.reverse();
         }
 
@@ -41,8 +44,10 @@ angular.module('myApp')
   });
 
     $scope.sendMessage = function(messageText) {
+
       if (messageText) {
       messageText.user = loginSvc.getCurrentUser();
+      // console.log(messageText);
       chatSvc.postMessage(messageText);
       $scope.$emit('client message', messageText);
       messageText = {};

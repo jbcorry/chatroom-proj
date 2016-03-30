@@ -1,5 +1,5 @@
 
-<section class='chatroom'>
+<section class='chatroom' ng-controller = 'groupCtrl'>
 
 <section class='new-msg'>
 
@@ -12,7 +12,7 @@
       <input id="m" type='text' ng-model='threadText.message' ng-submit='sendMessage(threadText)' placeholder="insert text here..."class='thread-text'>
 
     <div class='buttons'>
-        <input type='file' ng-model='attachedFile' fileread allow='image/*'>
+        <input type='file' name='file' fileread ng-model='file'>
 
         <input type='submit' value='Send'>
     </div>
@@ -30,8 +30,9 @@
 
 
 
-
-<img class='img-preview' src="{{message.location}}">
+<div class='img' ng-show = '{{message.location}}'>
+<a href='{{message.location}}'><img class="img-preview" src="{{message.location}}"></a>
+</div>
 {{message.message}}
         <button class='delete-all-btn' ng-click='deleteMessage(message._id, messages.indexOf(message))'>x</button>
 
