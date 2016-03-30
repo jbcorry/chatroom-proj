@@ -1,3 +1,6 @@
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var port = process.env.PORT || 9000;
+
 var express = require('express');
 var session = require('express-session');
 var passport = require('passport');
@@ -16,6 +19,9 @@ var msgCtrl = require('./controllers/msgCtrl.js');
 var User = require('./schemas/userSchema.js');
 var groupCtrl = require('./controllers/groupCtrl.js');
 var userCtrl = require('./controllers/userCtrl.js');
+
+
+
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
@@ -36,7 +42,7 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/');
 });
 
-app.use(express.static('./public'));
+app.use(express.static(__dirname + '/public'));
 
 
 //passport-local stuff
@@ -112,8 +118,11 @@ io.on('connection', function(socket){
   });
 });
 
-http.listen(9000, function(){
-  console.log('listening on *:9000');
+
+
+
+http.listen(port, function(){
+  console.log('listening on ' + port);
 });
 
 

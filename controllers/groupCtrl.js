@@ -4,7 +4,6 @@ var AWS = require('aws-sdk');
 var keys = require('../keys.js');
 var fs = require('fs');
 
-console.log('in groupController');
 AWS.config.update({
     accessKeyId: keys.amazonAccess,
     secretAccessKey: keys.amazonSecret,
