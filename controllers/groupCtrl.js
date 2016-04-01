@@ -21,13 +21,14 @@ module.exports = {
       name: req.body.name,
       password: req.body.password,
       description: req.body.description,
-      user: req.body.user,
+      user: req.body.user._id.user,
       messages: []
     };
 
     new Group(group).save(function(err, data){
       console.log(req.body);
       if (err){
+        console.log(err);
         res.status(500).send(err);
       }else{
         res.send(data);

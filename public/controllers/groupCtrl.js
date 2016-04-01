@@ -15,7 +15,8 @@ $scope.getGroups = function(){
       if(!data){
         return [];
       }else{
-        return data;
+        $scope.groups = data;
+        return $scope.groups;
       }
     });
 };
@@ -32,6 +33,13 @@ $scope.createGroup = function(group){
   groupSvc.createGroup(group);
   groupSvc.getGroups();
 };
+
+$scope.$on('new message', function(event, msg){
+  // console.log('almost there!');
+  // console.log(msg);
+  $scope.getGroups();
+});
+
 
 $scope.joinGroup = function(group, password) {
   var pw = prompt('Enter this groups password to access feed', 'Password');
