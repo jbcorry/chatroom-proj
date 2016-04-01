@@ -3,16 +3,16 @@
 
 <section class='new-msg'>
 
-  <div class='group-name'>{{group.name}}</div>
+  <div class='group-name'>{{currentGroup.name}}</div>
 
-<form onsubmit='this.reset()' ng-submit='sendMessage(threadText)'>
+<form onsubmit='this.reset()' ng-submit='sendMessage(threadText, currentGroup._id)'>
 
   <div class='new-thread-container'>
 
       <input id="m" type='text' ng-model='threadText.message' ng-submit='sendMessage(threadText)' placeholder="insert text here..."class='thread-text'>
 
     <div class='buttons'>
-        <input type='file' name='file' fileread ng-model='file'>
+        <input type='file' name='file' fileread user='currentUser' group='currentGroup._id' ng-model='file'>
 
         <input type='submit' value='Send'>
     </div>
@@ -25,7 +25,7 @@
 <section class='thread-container'>
 <section class='thread-box'>
 
-  <div id="message-box" ng-repeat='message in messages track by $index'>
+  <div id="message-box" ng-repeat='message in currentGroup.messages track by $index'>
     {{message.user.username}}:
 
 

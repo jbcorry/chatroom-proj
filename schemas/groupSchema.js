@@ -7,7 +7,7 @@ var Group = Schema({
  password:{type:String, required: true},
  description:{type: String, required: true},
  user:{type: mongoose.Schema.Types.ObjectId, ref:'User'},
- messages: [{type: mongoose.Schema.Types.ObjectId, ref:'Message'}],
+ messages: [{type:mongoose.Schema.Types.ObjectId, ref: 'Message'}],
  date:{type: Date, default: new Date()}
 
 });

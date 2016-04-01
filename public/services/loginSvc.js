@@ -1,7 +1,9 @@
 angular.module('myApp')
 .service('loginSvc', function($http){
 
-  var baseUrl = 'http://still-inlet-37919.herokuapp.com/';
+  var baseUrl = 'http://localhost:3000/';
+// var baseUrl = 'http://still-inlet-37919.herokuapp.com/';
+
 
   var currentUser;
 
@@ -23,15 +25,14 @@ angular.module('myApp')
   };
 
   this.signIn = function(username, password) {
-
+    console.log(username, password);
     return $http({
       method: "POST",
       url: baseUrl + 'login/',
       data: {"username": username, "password": password}
     }).then(function(res){
       console.log('logged in', res);
-      currentUser = res.data.user.user;
-      console.log(currentUser);
+      currentUser = res.data;
       return res.data;
     });
   };
@@ -43,7 +44,7 @@ angular.module('myApp')
   this.logout = function() {
     return $http({
       method: "GET",
-      url: baseUrl + '/logout'
+      url: baseUrl + 'logout/'
     }).then(function(res){
       console.log('logged out');
       return res.data;

@@ -10,7 +10,8 @@ angular.module('myApp', ['ui.router'])
 
   .state('groups', {
     url: '/groups',
-    templateUrl: '/views/groups.html'
+    templateUrl: '/views/groups.html',
+    controller: 'groupCtrl'
   })
   .state('about', {
     url: '/about',
@@ -25,7 +26,7 @@ angular.module('myApp', ['ui.router'])
     templateUrl: '/views/login.html'
   })
   .state('chat', {
-    url: '/chatroom',
+    url: '/groups/:id/chatroom',
     templateUrl: '/views/chatroom.html',
     controller: 'chatCtrl'
   })

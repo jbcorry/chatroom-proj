@@ -131,14 +131,14 @@ http.listen(port, function(){
 
     //chat endpoints
 
-app.get('/chatroom/', msgCtrl.getMessages);
+app.get('/groups/:id/chatroom/', msgCtrl.getMessages);
 
 
-app.post('/chatroom/', msgCtrl.addMessage);
+app.post('/groups/:id/chatroom/', msgCtrl.addMessage);
 
-app.delete('/chatroom/:id', msgCtrl.deleteMessage);
+app.delete('/groups/:id/chatroom/:id', msgCtrl.deleteMessage);
 
-app.delete('/chatroom/', msgCtrl.deleteAll);
+app.delete('/groups/:id/chatroom/', msgCtrl.deleteAll);
 
 //group endpoints
 
@@ -154,7 +154,7 @@ app.delete('/groups/', groupCtrl.deleteAllGroups);
 
 app.post('/user', userCtrl.addUser);
 
-app.post('/signup', passport.authenticate('local-signup', {failureRedirect: '/login'}),
+app.post('/signup', passport.authenticate('local-signup', {failureRedirect: '/home'}),
 function(req, res){
    res.status(200).send('signed up');
 }
@@ -162,12 +162,13 @@ function(req, res){
 
 
 app.post('/login', passport.authenticate('local-login', {
- failureRedirect: '/login'
+ failureRedirect: '/'
 }), function(req, res) {
  console.log("logged in");
  res.status(200).send({
-   msg: 'okay!',
-   user: req.session.passport
+   username: req.body.username,
+   password: req.body.password,
+   _id: req.session.passport
  });
 });
 

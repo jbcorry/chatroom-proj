@@ -5,7 +5,8 @@ var Message = Schema({
  message:{type:String, required: true},
  date:{type: Date, default: new Date()},
  user:{type: mongoose.Schema.Types.ObjectId, ref:'User'},
- location: {type:String}
+ location: {type:String, default: ''},
+ group: {type: mongoose.Schema.Types.ObjectId, ref:'Group', required: true}
 
 });
 

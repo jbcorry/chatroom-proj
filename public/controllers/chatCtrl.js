@@ -1,7 +1,9 @@
 angular.module('myApp')
-.controller('chatCtrl', function($scope, chatSvc, loginSvc) {
+.controller('chatCtrl', function($scope, chatSvc, loginSvc, groupSvc) {
 
   //s3 stuff
+$scope.currentGroup = groupSvc.currentGroup;
+
 
 var removeHtml = function(obj) {
   if (!obj.location) {
@@ -14,6 +16,7 @@ var removeHtml = function(obj) {
         if(!data){
           return [];
         }else{
+          // $scope.currentGroup.messages = data.reverse();
           // console.log(data);
           // data.forEach(removeHtml);
           return data.reverse();
@@ -27,7 +30,7 @@ var removeHtml = function(obj) {
   $scope.deleteMessage = function(id, index) {
     chatSvc.deleteMessage(id);
     // $scope.$apply(function() {
-      $scope.messages.splice(index, 1);
+      $scope.currentGroup.messages.splice(index, 1);
       $scope.$emit('delete message', index);
 
     // });
@@ -35,20 +38,36 @@ var removeHtml = function(obj) {
 
   $scope.deleteAll = function() {
     chatSvc.deleteAll();
-    $scope.messages = [];
+    $scope.currentGroup.messages = [];
   };
 
+var getGroupMessages = function(arr){
+    var newArr = [];
+    for (var i=0; i < arr.length; i++) {
+      if (arr[i].group !== $scope.currentGroup._id) {
 
-  $scope.messages= $scope.getMessages().then(function(data) {
-    $scope.messages = data;
+      } else {
+        newArr.push(arr[i]);
+      }
+    }
+    return newArr;
+};
+
+
+  $scope.currentGroup.messages= $scope.getMessages().then(function(data) {
+    $scope.currentGroup.messages = getGroupMessages(data);
   });
 
-    $scope.sendMessage = function(messageText) {
+    $scope.sendMessage = function(messageText, groupId) {
 
       if (messageText) {
       messageText.user = loginSvc.getCurrentUser();
-      // console.log(messageText);
-      chatSvc.postMessage(messageText);
+      console.log('this is the groupId', groupId);
+      var data = {
+        groupId: groupId,
+        message: messageText
+      };
+      chatSvc.postMessage(data);
       $scope.$emit('client message', messageText);
       messageText = {};
     } else{
@@ -63,12 +82,12 @@ var removeHtml = function(obj) {
     $scope.$on('new message', function(event, msg){
       // console.log('almost there!');
       // console.log(msg);
-      $scope.messages = $scope.getMessages().then(function(data) {
-        // console.log(data);
-        $scope.messages.Location = msg.Location;
-        $scope.messages = data;
+      $scope.currentGroup.messages= $scope.getMessages()
+      .then(function(data) {
+        $scope.currentGroup.messages = getGroupMessages(data);
+      });        // console.log(data);
 
-      });
+
       // $scope.$apply(function() {
       //
       // });

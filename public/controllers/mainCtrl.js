@@ -43,6 +43,7 @@ angular.module('myApp')
   });
 
   $scope.$on('client message', function(event, msg){
+        // console.log('got the deleted group');
         socket.emit('ctrl message', msg);
       });
 

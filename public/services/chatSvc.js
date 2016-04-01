@@ -1,34 +1,34 @@
 angular.module('myApp')
 .service('chatSvc', function($http) {
 
-  var baseUrl = 'http://still-inlet-37919.herokuapp.com/';
+  var baseUrl = 'http://localhost:3000/';
+// var baseUrl = 'http://still-inlet-37919.herokuapp.com/'
 
   var messages = [];
   this.getMessages = function() {
       return $http({
-        method: "GET",
-        url: baseUrl + 'chatroom/',
+        method: "get",
+        url: baseUrl + 'groups/:id/chatroom/',
       }).then(function(res){
         return res.data;
       });
 
   };
 
-  this.postMessage = function(msg) {
+  this.postMessage = function(data) {
     // console.log(msg);
-    $http.post(baseUrl + 'chatroom/', msg);
-
+    $http.post(baseUrl + 'groups/' + data.groupId + '/chatroom/', data);
   };
 
   this.deleteMessage = function(id) {
 
-    $http.delete(baseUrl + 'chatroom/' + id);
+    $http.delete(baseUrl + 'groups/:id/chatroom/' + id);
 
   };
 
   this.deleteAll = function() {
 
-    $http.delete(baseUrl + 'chatroom/');
+    $http.delete(baseUrl + 'groups/:id/chatroom/');
 
   };
 

@@ -16,11 +16,13 @@ var s3 = new AWS.S3();
 module.exports = {
 
   addGroup: function(req, res) {
+    console.log(req.body);
     var group = {
       name: req.body.name,
       password: req.body.password,
       description: req.body.description,
-      user: req.body.user
+      user: req.body.user,
+      messages: []
     };
 
     new Group(group).save(function(err, data){
@@ -34,7 +36,7 @@ module.exports = {
   },
 
   getGroups: function(req, res) {
-    Group.find().then(function(response){
+    Group.find().populate('message').exec().then(function(response){
       res.send(response);
     });
   },

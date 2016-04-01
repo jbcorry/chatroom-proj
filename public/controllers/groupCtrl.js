@@ -28,14 +28,18 @@ $scope.groups= $scope.getGroups().then(function(data) {
 $scope.createGroup = function(group){
   group.messages = [];
   group.user = loginSvc.getCurrentUser();
-  console.log(group);
+  $scope.$emit('client message', group);
   groupSvc.createGroup(group);
   groupSvc.getGroups();
 };
 
-$scope.checkPassword = function(password) {
+$scope.joinGroup = function(group, password) {
   var pw = prompt('Enter this groups password to access feed', 'Password');
   if (pw === password) {
+    console.log(group);
+    groupSvc.currentGroup = group;
+    // $scope.currentGroup = group;
+    // groupSvc.getCurrentGroup(group);
     $state.go('chat');
   } else {
     alert('Incorrect Group Password');
@@ -44,8 +48,10 @@ $scope.checkPassword = function(password) {
 
 $scope.deleteGroup = function(id, index) {
     console.log('in ctrl');
-    groupSvc.deleteGroup(id);
+    groupSvc.deleteGroup(id).then();
     $scope.groups.splice(index, 1);
+    $scope.$emit('delete message', index);
+
 };
 
 
