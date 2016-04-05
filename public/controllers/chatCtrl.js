@@ -70,7 +70,7 @@ var getGroupMessages = function(arr){
   });
 
     $scope.sendMessage = function(messageText, groupId) {
-      console.log(messageText);
+      // console.log(messageText);
         if (messageText.message.split(' ')[0] === '/giphy'){
             messageText.user = loginSvc.getCurrentUser();
 

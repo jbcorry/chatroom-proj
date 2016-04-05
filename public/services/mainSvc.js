@@ -6,14 +6,14 @@ angular.module('myApp')
   this.storeImage = function (imageData, fileName) {
       var imageExtension = imageData.split(';')[0].split('/');
       imageExtension = imageExtension[imageExtension.length - 1];
-      console.log('in the service');
+      // console.log('in the service');
       var newImage = {
         imageName: fileName,
         imageBody: imageData,
         imageExtension: imageExtension,
         userEmail: 'jakecorry123@gmail.com'
       };
-      console.log(newImage);
+      // console.log(newImage);
       return $http.post('/api/newimage', newImage);
     };
 

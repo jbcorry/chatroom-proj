@@ -1,8 +1,8 @@
 angular.module('myApp')
 .service('groupSvc', function($http){
 
-// var baseUrl = 'http://localhost:3000/';
-var baseUrl = 'http://still-inlet-37919.herokuapp.com/';
+var baseUrl = 'http://localhost:3000/';
+// var baseUrl = 'http://still-inlet-37919.herokuapp.com/'
 
 var groups = [];
 
@@ -25,7 +25,7 @@ this.getGroups = function() {
     method: "GET",
     url: baseUrl + 'groups/',
   }).then(function(res){
-    console.log(res.data);
+    // console.log(res.data);
     res.data.forEach(changeColor);
     return res.data;
   });
