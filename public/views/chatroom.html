@@ -1,7 +1,7 @@
 
 <section class='chatroom' ng-controller = 'groupCtrl'>
 
-<div class='chat-area'>
+<div class='chat-area animated fadeInUp'>
 <div class='group-name-bar'>
 
   {{currentGroup.name}} - {{currentGroup.description}}
@@ -10,7 +10,7 @@
 <section class='thread-container'>
 <section class='thread-box'>
 
-  <div id="message-box" ng-repeat='message in currentGroup.messages track by $index'>
+  <div id="message-box"  ng-repeat='message in currentGroup.messages track by $index'>
     {{message.user.username}}:
 
 

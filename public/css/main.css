@@ -295,6 +295,11 @@
 
 .home-btn {
   margin: 10px;
+  background-color: black;
+  color: white;
+  box-shadow: -3px 3px 3px white;
+  border: none;
+  border-radius: 4px;
 }
 
 .chatroom {

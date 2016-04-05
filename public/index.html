@@ -2,6 +2,7 @@
 <html ng-app="myApp">
   <head>
     <link rel='stylesheet' href='/css/main.css'>
+    <link rel='stylesheet' href='/css/animate.css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <meta charset="utf-8">
     <title></title>
@@ -11,7 +12,7 @@
 
         <div class='logo'><img id='nba' src='/images/nba.jpeg'></div>
 
-      <div class='tab-container'>
+      <div class='tab-container animated slideInLeft'>
         <div class='tabs' ng-repeat='tab in tabsIn' ng-click='' ng-show='loggedIn'><a id='tab-links' ui-sref='{{tab.view}}'>{{tab.name}}</a></div>
         <div class='tabs' ng-repeat='tab in tabsOut' ng-click='' ng-hide='loggedIn'><a id='tab-links' ui-sref='{{tab.view}}'>{{tab.name}}</a></div>
 
