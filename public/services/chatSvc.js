@@ -1,8 +1,8 @@
 angular.module('myApp')
 .service('chatSvc', function($http) {
 
-  var baseUrl = 'http://localhost:3000/';
-// var baseUrl = 'http://still-inlet-37919.herokuapp.com/';
+  // var baseUrl = 'http://localhost:3000/';
+var baseUrl = 'http://still-inlet-37919.herokuapp.com/';
 
   var apiKey = 'dc6zaTOxFJmzC';
 
