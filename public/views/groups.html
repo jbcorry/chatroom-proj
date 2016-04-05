@@ -4,11 +4,13 @@
 <input class='group-filter' placeholder="Search for groups..." type='text' ng-model='searchGroups'>
 
 <div class='group-container'>
+<div class='group-wrapper'>
 <div ng-repeat='group in groups | filter: searchGroups'>
 
 
 
       <group group='group'></group>
+</div>
 </div>
 </div>
 <section class='bottom-group-container'>

@@ -69,7 +69,7 @@
 .main-container {
   height: 85vh;
   background-image: url(../images/chalk_bubbles.jpg);
-  background-size: 100% 100vh;
+  background-size: cover;
   padding: 10px;
 }
 
@@ -176,6 +176,11 @@
   height: 67vh;
   overflow-y: scroll;
   border: 1px gray solid;
+  background-image: url(../images/group_of_people.jpg);
+}
+.group-wrapper {
+  width: 100%;
+  background: linear-gradient(transparent, gray)
 }
 .new-group {
   height: 13vh;
@@ -184,13 +189,21 @@
   align-items: center;
   background-color: #71cebd;
 }
-
+.new-group-btn {
+  font-size: 2vh;
+  color: white;
+  height: 4vh;
+  width: 20vw;
+  border-radius: 1vh;
+  background-color: black;
+  box-shadow: -3px 3px 8px 3px gray;
+}
 .bottom-group-container {
   height: 13vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ffb298;
+  background-color: #71cebd;
 
 }
 .new-group-form {
@@ -221,14 +234,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px gray solid;
-  height: 60px;
-  background: #13bd74;
+  border: 1px black solid;
+  height: 58px;
+  color: white;
+
 }
 
 .group-desc {
 
-  background-color: gray;
+  background: gray;
   color: white;
   height: 30px;
   display: flex;

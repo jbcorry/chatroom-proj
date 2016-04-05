@@ -18,6 +18,7 @@ module.exports = {
        var id = req.params.id;
        User.findById(id, function (err, resp) {
                if (err) {
+                 console.log('err');
                    res.status(500).json(err);
                } else {
                    res.status(200).json(resp);

@@ -24,9 +24,10 @@ angular.module('myApp')
       alert('Please enter your username and password');
     }
     else {
-      $scope.loggedIn = true;
-      loginSvc.signIn(username, password);
-      $state.go('home');
+      loginSvc.signIn(username, password).then(function(results){
+        $scope.loggedIn = true;
+        $state.go('home');
+      });
     }
   };
 
