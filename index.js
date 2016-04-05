@@ -8,8 +8,8 @@ var LocalStrategy = require('passport-local');
 // var FacebookStrategy = require('passport-facebook').Strategy;
 var keys = require('./config.js');
 var bodyParser = require('body-parser');
-
 var app = express();
+
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mongoose = require('mongoose');
@@ -20,18 +20,25 @@ var User = require('./schemas/userSchema.js');
 var groupCtrl = require('./controllers/groupCtrl.js');
 var userCtrl = require('./controllers/userCtrl.js');
 
+mongoose.connect(mongoUri);
+mongoose.connection.once('open', function() {
+  console.log('Connected');
+});
 
-
-
+app.use(require('cookie-parser')());
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(session({
   secret: "this is secret",
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: { secure: true },
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000
 }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 //image posting
 
@@ -51,47 +58,41 @@ passport.use('local-login', new LocalStrategy({
   usernameField: 'username',
   passwordField: 'password'
 },
-function(email, password, cb) {
-  User.findOne({
-    username: email,
-    password: password
-  }, function(err, user) {
-    if (err) {
-      return cb(err);
-    }
-    if (!user) {
-      return cb(null, false);
-    }
-    if (user.password != password) {
-      return cb(null, false);
-    }
-    return cb(null, user);
-  });
+
+//login auth
+function(username, password, cb) {
+  User.findOne({username: username}, function(err, user) {
+      if (err) { return cb(err); }
+      if (!user) { return cb(null, false); }
+      if (!user.validatePassword(password)) { console.log('password wrong'); return cb(null, false); }
+      return cb(null, user);
+    });
+}));
+
+//signup auth
+passport.use('local-signup', new LocalStrategy({
+  usernameField: 'username',
+  passwordField: 'password',
+  passReqToCallback: true
+}, function(req, username, password, done) {
+    User.findOne({'username': username}, function(err, user) {
+        if (err) return done(err);
+        if (user) return done(null, false);
+        else {
+            var newUser = new User(req.body);
+            console.log(newUser);
+            newUser.password = newUser.generateHash(req.body.password);
+            newUser.save(function(err, response) {
+                if (err) return done(null, err);
+                else return done(null, response);
+            });
+        }
+    });
 }));
 
 
-passport.use('local-signup', new LocalStrategy({
-   usernameField: 'username',
-   passwordField: 'password',
-   passReqToCallback: true
- }, function(req, username, password, done) {
-     User.findOne({'username': username}, function(err, user) {
-         if (err) return done(err);
-         if (user) return done(null, false);
-         else {
-             var newUser = new User(req.body);
-             newUser.save(function(err, response) {
-                 console.log(response + "here is the response");
-                 if (err) return done(null, err);
-                 else return done(null, response);
-             });
-         }
-     });
- }));
-
-
 passport.serializeUser(function(user, done) {
-     console.log(user + "this is a user before we serializeUser");
+    //  console.log(user + "this is a user before we serializeUser");
    done(null, user.id);
  });
 
@@ -102,6 +103,35 @@ passport.deserializeUser(function(user, cb) {
    }
    cb(null, user);
  });
+});
+
+//login endpoints
+
+app.post('/user', userCtrl.addUser);
+
+app.post('/signup', passport.authenticate('local-signup', {failureRedirect: '/signup'}),
+function(req, res){
+res.status(200).send('signed up');
+}
+);
+
+app.post('/login', passport.authenticate('local-login', {
+ failureRedirect: '/login'
+}), function(req, res) {
+ console.log("logged in");
+ res.status(200).send({
+   username: req.body.username,
+   password: req.body.password,
+   _id: req.session.passport
+ });
+});
+
+app.get('/logout', function(req, res) {
+
+ req.logout();
+ req.session.destroy();
+ console.log('logged out');
+ res.redirect('/login');
 });
 
 
@@ -131,61 +161,29 @@ http.listen(port, function(){
 
     //chat endpoints
 
-app.get('/groups/:id/chatroom/', msgCtrl.getMessages);
+app.get('/groups/chatroom', msgCtrl.getMessages);
 
 
-app.post('/groups/:id/chatroom/', msgCtrl.addMessage);
+app.post('/groups/', msgCtrl.addMessage, groupCtrl.addGroup);
 
-app.delete('/groups/:id/chatroom/:id', msgCtrl.deleteMessage);
+app.delete('/groups/', msgCtrl.deleteMessage);
 
-app.delete('/groups/:id/chatroom/', msgCtrl.deleteAll);
+app.delete('/groups/', msgCtrl.deleteAll);
 
 //group endpoints
 
 app.get('/groups/', groupCtrl.getGroups);
 
-app.post('/groups/', groupCtrl.addGroup);
+// app.post('/groups/', groupCtrl.addGroup);
 
 app.delete('/groups/:id', groupCtrl.deleteGroup);
 
-app.delete('/groups/', groupCtrl.deleteAllGroups);
-
-    //login endpoints
-
-app.post('/user', userCtrl.addUser);
-
-app.post('/signup', passport.authenticate('local-signup', {failureRedirect: '/home'}),
-function(req, res){
-   res.status(200).send('signed up');
-}
-);
-
-
-app.post('/login', passport.authenticate('local-login', {
- failureRedirect: '/'
-}), function(req, res) {
- console.log("logged in");
- res.status(200).send({
-   username: req.body.username,
-   password: req.body.password,
-   _id: req.session.passport
- });
-});
-
-app.get('/logout', function(req, res) {
-
- req.logout();
- req.session.destroy();
- console.log('logged out');
- res.redirect('/login');
-});
+// app.delete('/groups/', groupCtrl.deleteAllGroups);
 
 
 
-mongoose.connect(mongoUri);
-mongoose.connection.once('open', function() {
-  console.log('Connected');
-});
+
+
 //
 //
 // app.use(session({secret: 'gypsy'}));

@@ -17,6 +17,7 @@ angular.module('myApp')
           console.log('in the directive');
           var tempArray = elem[0].value.split('\\');
           var fileName = tempArray[tempArray.length - 1];
+
           mainSvc.storeImage(fileread, fileName)
           .then(function (result) {
             console.log(result);
@@ -30,7 +31,7 @@ angular.module('myApp')
               groupId: scope.group,
               message: result.data
             };
-
+            console.log(data);
             chatSvc.postMessage(data);
             // scope.messages.unshift(result.data);
             console.log(scope.messages);

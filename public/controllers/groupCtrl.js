@@ -27,12 +27,30 @@ $scope.groups= $scope.getGroups().then(function(data) {
 
 
 $scope.createGroup = function(group){
-  group.messages = [];
-  group.user = loginSvc.getCurrentUser();
-  $scope.$emit('client message', group);
-  groupSvc.createGroup(group);
-  groupSvc.getGroups();
+    if (group) {
+        group.messages = [];
+        group.user = loginSvc.getCurrentUser();
+        groupSvc.createGroup(group);
+        $scope.$emit('client message', group);
+        groupSvc.getGroups();
+    } else {
+      return;
+    }
 };
+
+// if (messageText) {
+// messageText.user = loginSvc.getCurrentUser();
+// console.log('this is the groupId', groupId);
+// var data = {
+//   groupId: groupId,
+//   message: messageText
+// };
+// chatSvc.postMessage(data);
+// $scope.$emit('client message', messageText);
+// messageText = {};
+// } else{
+// return;
+// }
 
 $scope.$on('new message', function(event, msg){
   // console.log('almost there!');
@@ -56,9 +74,10 @@ $scope.joinGroup = function(group, password) {
 
 $scope.deleteGroup = function(id, index) {
     console.log('in ctrl');
-    groupSvc.deleteGroup(id).then();
+    groupSvc.deleteGroup(id);
     $scope.groups.splice(index, 1);
     $scope.$emit('delete message', index);
+    $scope.getGroups();
 
 };
 

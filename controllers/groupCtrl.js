@@ -2,7 +2,7 @@ var Group = require('../schemas/groupSchema');
 
 var AWS = require('aws-sdk');
 var keys = require('../config.js');
-var fs = require('fs');
+// var fs = require('fs');
 
 AWS.config.update({
     accessKeyId: keys.amazonAccess,
@@ -63,15 +63,7 @@ module.exports = {
     });
   },
   postImage: function(req, res) {
-    // var fileStream = fs.createReadStream(req.body);
-    // fileStream.on('error', function(err) {
-    //   if (err) { throw err; }
-    // });
-    //
-    // fileStream.on('open', function() {});
 
-
-    // exports.saveImage = function (req, res) {
   var buf = new Buffer(req.body.imageBody.replace(/^data:image\/\w+;base64,/, ""), 'base64');
   console.log('saving image');
   // bucketName var below crates a "folder" for each user

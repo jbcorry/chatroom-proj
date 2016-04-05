@@ -1,27 +1,12 @@
 
 <section class='chatroom' ng-controller = 'groupCtrl'>
 
-<section class='new-msg'>
+<div class='chat-area'>
+<div class='group-name-bar'>
 
-  <div class='group-name'>{{currentGroup.name}}</div>
+  {{currentGroup.name}} - {{currentGroup.description}}
 
-<form onsubmit='this.reset()' ng-submit='sendMessage(threadText, currentGroup._id)'>
-
-  <div class='new-thread-container'>
-
-      <input id="m" type='text' ng-model='threadText.message' ng-submit='sendMessage(threadText)' placeholder="insert text here..."class='thread-text'>
-
-    <div class='buttons'>
-        <input type='file' name='file' fileread user='currentUser' group='currentGroup._id' ng-model='file'>
-
-        <input type='submit' value='Send'>
-    </div>
-
-  </div>
-
-</form>
-
-</section>
+</div>
 <section class='thread-container'>
 <section class='thread-box'>
 
@@ -30,11 +15,12 @@
 
 
 
+
+{{message.message}}<br>
 <div class='img' ng-show = '{{message.location}}'>
 <a href='{{message.location}}'><img class="img-preview" src="{{message.location}}"></a>
 </div>
-{{message.message}}
-        <button class='delete-all-btn' ng-click='deleteMessage(message._id, messages.indexOf(message))'>x</button>
+        <button class='delete-all-btn' ng-click='deleteMessage(message._id, currentGroup.messages.indexOf(message))'>x</button>
 
   </div>
 
@@ -47,11 +33,39 @@
 
 
 </section>
-<button clas='delete-btn' ng-click='deleteAll()'>Clear Chat</button>
 </section>
+<section class='new-msg'>
+
+  <!-- <div class='group-name'>{{currentGroup.name}}</div> -->
+
+<form class='msg-form' onsubmit='this.reset()' ng-submit='sendMessage(threadText, currentGroup._id)'>
+
+
+      <input class='msg-input' type='text' ng-model='threadText.message' ng-submit='sendMessage(threadText)' placeholder="insert text here..."class='thread-text'>
+
+
+      <div class='send-btn' ng-click='sendMessage(threadText, currentGroup._id)' value='Send'>Send</div>
+
+      <div class='file-wrapper'>
+
+          <input type='file' name='file' fileread user='currentUser' group='currentGroup._id' ng-model='file'>
+          <span class='file-btn'><i class="fa fa-paperclip"></i></span>
+
+      </div>
+
+
+
+
+</form>
+
+</section>
+<!-- <button clas='delete-btn' ng-click='deleteAll(currentGroup)'>Clear Chat</button> -->
+
+</div>
 <!-- <button class='delete-all' ng-click='deleteAll()'>Delete all</button> -->
+
 </section>
-<button class='home-btn' ui-sref='home'>Return to Homepage</button>
+<!-- <button class='home-btn' ui-sref='home'>Return to Homepage</button> -->
 
 <!--
 <body>

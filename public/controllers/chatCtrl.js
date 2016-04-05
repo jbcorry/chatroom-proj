@@ -1,24 +1,28 @@
 angular.module('myApp')
-.controller('chatCtrl', function($scope, chatSvc, loginSvc, groupSvc) {
+.controller('chatCtrl', function($scope, chatSvc, loginSvc, groupSvc, $state) {
 
   //s3 stuff
+
 $scope.currentGroup = groupSvc.currentGroup;
+// console.log($scope.currentGroup);
 
 
-var removeHtml = function(obj) {
-  if (!obj.location) {
-    $('.img').remove();
-  }
-};
+// var checkForLocation = function(obj) {
+//   if (obj.location !== '') {
+//     return;
+//   } else {
+//     delete obj.location;
+//   }
+// };
 
-  $scope.getMessages = function(){
-    return chatSvc.getMessages().then(function(data){
+  $scope.getMessages = function(group){
+    return chatSvc.getMessages(group).then(function(data){
         if(!data){
           return [];
         }else{
           // $scope.currentGroup.messages = data.reverse();
           // console.log(data);
-          // data.forEach(removeHtml);
+          // data.forEach(checkForLocation);
           return data.reverse();
         }
 
@@ -27,22 +31,29 @@ var removeHtml = function(obj) {
 
 
 
+
   $scope.deleteMessage = function(id, index) {
-    chatSvc.deleteMessage(id);
+    $scope.currentGroup = groupSvc.currentGroup;
+    var group = $scope.currentGroup;
+    // console.log(group);
+    chatSvc.deleteMessage(group, id);
     // $scope.$apply(function() {
       $scope.currentGroup.messages.splice(index, 1);
+      $scope.getMessages(group);
+      // $state.reload();
       $scope.$emit('delete message', index);
 
     // });
   };
 
-  $scope.deleteAll = function() {
-    chatSvc.deleteAll();
+  $scope.deleteAll = function(group) {
+    chatSvc.deleteAll(group);
     $scope.currentGroup.messages = [];
   };
 
 var getGroupMessages = function(arr){
     var newArr = [];
+    // console.log(arr);
     for (var i=0; i < arr.length; i++) {
       if (arr[i].group !== $scope.currentGroup._id) {
 
@@ -54,27 +65,58 @@ var getGroupMessages = function(arr){
 };
 
 
-  $scope.currentGroup.messages= $scope.getMessages().then(function(data) {
+  $scope.currentGroup.messages= $scope.getMessages($scope.currentGroup).then(function(data) {
     $scope.currentGroup.messages = getGroupMessages(data);
   });
 
     $scope.sendMessage = function(messageText, groupId) {
+      console.log(messageText);
+        if (messageText.message.split(' ')[0] === '/giphy'){
+            messageText.user = loginSvc.getCurrentUser();
 
-      if (messageText) {
-      messageText.user = loginSvc.getCurrentUser();
-      console.log('this is the groupId', groupId);
-      var data = {
-        groupId: groupId,
-        message: messageText
-      };
-      chatSvc.postMessage(data);
-      $scope.$emit('client message', messageText);
-      messageText = {};
-    } else{
-      return;
-      }
+            console.log('giphy time');
+            var data = {
+              groupId: groupId,
+              message: messageText
+            };
+            chatSvc.getGiphy(data).then(function(results) {
+              // console.log(results);
 
-    $scope.getMessages();
+              var giphyData = {
+                groupId: groupId,
+                message: messageText
+              };
+              giphyData.message.Location = results.data.image_url;
+              // console.log(giphyData);
+              chatSvc.postMessage(giphyData);
+              $scope.$emit('client message', messageText);
+              messageText = {};
+            });
+
+        }
+        else {
+          if (messageText) {
+            if(messageText.Location) {
+              delete messageText.Location;
+              // console.log(messageText);
+            }
+                messageText.user = loginSvc.getCurrentUser();
+                // console.log('this is the groupId', groupId);
+                var data1 = {
+                  groupId: groupId,
+                  message: messageText
+                };
+                // console.log(data1);
+                chatSvc.postMessage(data1);
+                $scope.$emit('client message', messageText);
+                messageText = {};
+        } else{
+          return;
+          }
+
+    }
+
+    $scope.getMessages($scope.currentGroup);
 
     };
 
@@ -82,7 +124,8 @@ var getGroupMessages = function(arr){
     $scope.$on('new message', function(event, msg){
       // console.log('almost there!');
       // console.log(msg);
-      $scope.currentGroup.messages= $scope.getMessages()
+
+      $scope.currentGroup.messages= $scope.getMessages($scope.currentGroup)
       .then(function(data) {
         $scope.currentGroup.messages = getGroupMessages(data);
       });        // console.log(data);
@@ -93,6 +136,10 @@ var getGroupMessages = function(arr){
       // });
       // getMessages();
 
+    });
+
+    $scope.$on('delete message', function(){
+      $scope.getMessages($scope.currentGroup);
     });
 
 

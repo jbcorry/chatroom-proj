@@ -1,23 +1,31 @@
 <section class='main-group-container' ng-controller='groupCtrl'>
 
+<div class='group-txt'>Find or Create a group!</div>
+<input class='group-filter' placeholder="Search for groups..." type='text' ng-model='searchGroups'>
 
-<input class='group-filter' type='text' ng-model='searchGroups'>
-
-<div class='group-container' ng-repeat='group in groups | filter: searchGroups'>
+<div class='group-container'>
+<div ng-repeat='group in groups | filter: searchGroups'>
 
 
 
       <group group='group'></group>
 </div>
+</div>
+<section class='bottom-group-container'>
 <button class='new-group-btn' ng-click='toggleGroup()' ng-show='!newGroup'>Create a Group!</button>
 <form class='new-group-form' action='' onsubmit='this.reset()' ng-submit='createGroup(group)' ng-show='newGroup'>
+<div>
+  <input class='group-input' type='text' placeholder="Enter Group Name" ng-model='group.name'>
 
-  <input type='text' ng-model='group.name'>
-
-  <input type='password' ng-model='group.password'>
-
-  <textarea class='group-description' ng-model='group.description'></textarea>
+  <input class='group-input' type='password' placeholder='Enter Group Password' ng-model='group.password'>
+</div>
+<div>
+  <textarea class='group-description' placeholder="Enter a short description for your group" ng-model='group.description'></textarea>
+</div>
     <div class='buttons'>
-      <input type='submit' value='Make Group'>
+      <button class='button'type='submit' ng-click'createGroup(group)' >Make Group</button>
+      <button class='button' ng-click='toggleGroup()'>Hide</button>
     </div>
+</form>
+</section>
 </section>

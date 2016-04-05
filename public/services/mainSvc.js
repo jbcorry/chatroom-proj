@@ -26,19 +26,12 @@ angular.module('myApp')
     {
       name: 'Groups',
       view: 'groups'
-    },
-    {
-      name: 'Contact',
-      view: 'contact',
     }
 
   ];
 
   var tabsOut = [
     {
-      name: 'Home',
-      view: 'home',
-    },{
       name: 'Login/Sign up',
       view: 'login',
     }
