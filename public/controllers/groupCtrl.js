@@ -22,6 +22,7 @@ $scope.getGroups = function(){
 };
 
 $scope.groups= $scope.getGroups().then(function(data) {
+  $scope.loading = false;
   $scope.groups = data;
 });
 
@@ -62,7 +63,6 @@ $scope.$on('new message', function(event, msg){
 $scope.joinGroup = function(group, password) {
   var pw = prompt('Enter this groups password to access feed', 'Password');
   if (pw === password) {
-    console.log(group);
     groupSvc.currentGroup = group;
     // $scope.currentGroup = group;
     // groupSvc.getCurrentGroup(group);

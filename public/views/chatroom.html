@@ -20,7 +20,7 @@
 <div class='img' ng-show = '{{message.location}}'>
 <a href='{{message.location}}'><img class="img-preview" src="{{message.location}}"></a>
 </div>
-        <button class='delete-all-btn' ng-click='deleteMessage(message._id, currentGroup.messages.indexOf(message))'>x</button>
+        <span class='delete-all-btn' ng-click='deleteMessage(message._id, currentGroup.messages.indexOf(message))'>&times;</span>
 
   </div>
 

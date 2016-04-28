@@ -1,7 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300%7COswald:400,300,700);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
 
 * {
-  font-family: 'Oswald';
+  font-family: 'Lato';
+}
+
+@keyframes fadeIn {
+  from {opacity: .0;}
+  to {opacity: 1;}
 }
 
 /* navbar */
@@ -27,7 +33,7 @@
   justify-content: space-between;
   align-items: center;
   height: 40px;
-  background-color: #201c1d;
+  background-image: url('../images/header-background.jpg');
   color: white;
 
 }
@@ -41,7 +47,7 @@
 .tabs {
   margin: 10px;
   color: white;
-  font-family: 'Oswald';
+  font-family: 'Lato';
 }
 
 /* footer */
@@ -51,8 +57,8 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #201c1d;
-  height: 30px;
+  background-image: url('../images/header-background.jpg');
+  height: 40px;
   color: white;
 
 
@@ -67,24 +73,33 @@
 /* home-view */
 
 .main-container {
-  height: 85vh;
-  background-image: url(../images/chalk_bubbles.jpg);
-  background-size: cover;
-  padding: 10px;
+  height: 88vh;
+  background-image: url(../images/home-background.jpg);
+
 }
 
 .top-home-container {
-
+  padding-top: 100px;
   text-align: center;
-  height: 25vh;
+  height: 15vh;
+  font-size: 24px;
+  animation-name: fadeIn;
+  animation-duration: .5s;
+}
 
+.top-home-text {
+  margin: 20px;
+  font-size: 20px;
+  animation-name: fadeIn;
+  animation-duration: 1s;
 }
 
 .middle-home-container {
-
   text-align: center;
   margin-bottom: 20px;
-
+  font-size: 20px;
+  animation-name: fadeIn;
+  animation-duration: 1.5s;
 }
 
 .login {
@@ -103,23 +118,20 @@
 /* login-view */
 
 .login-container {
-
-  padding-top: 10px;
   text-align: center;
   background-image: url(../images/oldguy.jpg);
   background-size: cover;
   height: 85vh;
   width: 100%;
   color: black;
+  animation-name: fadeIn;
+  animation-duration: 1s;
 }
 
 .login-form {
   background: linear-gradient(white, transparent);
   width: 100%;
-
-  position: absolute;
-  top: 45px;
-
+  height: 100%;
 
 }
 
@@ -130,14 +142,16 @@
   justify-content: center;*/
 }
 
-.input {
-
+.text-input {
   background-color: white;
   border: 1px solid gray;
-  font-size: 12px;
-  height: 20px;
-  width: 150px;
-
+  font-size: 14px;
+  border-radius: 3px;
+  height: 30px;
+  width: 200px;
+  margin: 10px;
+  animation-name: fadeIn;
+  animation-duration: 1s;
 }
 
 /* groups-view */
@@ -155,6 +169,7 @@
 .main-group-container {
   height: 87vh;
   text-align: center;
+  background-image: url(../images/group-background.jpg);
 }
 
 .group-txt {
@@ -173,50 +188,41 @@
 }
 
 .group-container {
-  height: 67vh;
+  height: 66vh;
   overflow-y: scroll;
   border: 1px gray solid;
-  background-image: url(../images/group_of_people.jpg);
 }
 .group-wrapper {
   width: 100%;
-  background: linear-gradient(transparent, gray)
 }
 .new-group {
   height: 13vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #71cebd;
+  background-color: #45b5b7;
 }
-.new-group-btn {
-  font-size: 2vh;
-  color: white;
-  height: 4vh;
-  width: 20vw;
-  border-radius: 1vh;
-  background-color: black;
-  box-shadow: -3px 3px 8px 3px gray;
-}
+
 .bottom-group-container {
-  height: 13vh;
+  height: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #71cebd;
+  background-color: #45b5b7;
 
 }
 .new-group-form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  height: 12vh;
+  height: 100%;
 }
 
 .group-input {
   height: 2vh;
   margin: 5px;
+}
+
+.group-header {
+  font-size: 18px;
+  padding: 20px;
 }
 
 .group-description {
@@ -236,7 +242,7 @@
   align-items: center;
   border: 1px black solid;
   height: 58px;
-  color: white;
+  color: black;
 
 }
 
@@ -262,8 +268,22 @@
 
 .join-btn {
   height: 100%;
-  width: 80px;
+  width: 150px;
   height: 60px;
+  font-size: 12px;
+  border: 1px solid black;
+  border-left: 2px solid black;
+  background: #45b5b7;
+}
+
+.loader {
+  position: fixed;
+  left: 0px;
+  top: 100px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: url('../images/pageloader.gif') 50% 50% no-repeat transparent;
 }
 
 .toggle {
@@ -294,12 +314,15 @@
 /* chatroom-view */
 
 .home-btn {
+  width: 200px;
+  height: 40px;
+  background: #45b5b7;
+  border: 2px grey solid;
+  border-radius: 3px;
   margin: 10px;
-  background-color: black;
-  color: white;
-  box-shadow: -3px 3px 3px white;
-  border: none;
-  border-radius: 4px;
+  animation-name: fadeIn;
+  animation-duration: 3s;
+  font-size: 12px;
 }
 
 .chatroom {
@@ -364,7 +387,7 @@
   border-radius: 5px;
   cursor: pointer;
   display: inline-block;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: bold;
   padding: 4px 18px;
   text-transform: uppercase;
@@ -388,10 +411,16 @@
   width: 10%;
   height: 5vh;
   border-radius: 0;
-  font-size: 12px;
-  background-color: #72cfbd;
+  font-size: 14px;
+  background-color: #45b5b7;
   color: white;
+  cursor: pointer;
+}
 
+.delete-all-btn {
+  height: 100%;
+  width: 20px;
+  cursor: pointer;
 }
 
 .thread-text {
@@ -438,6 +467,55 @@
   width: 300px;
 }
 
-/*.hide {
-  display: none;
-}*/
+
+  @media only handheld and (max-width: 800px){
+    .main-container {
+      height: 90vh;
+      font-size: 2vh;
+      color: white;
+    }
+
+    /*login*/
+    .login-container{
+      height: 90vh;
+    }
+    .login-form {
+      height: 80vh;
+    }
+    .login {
+      height: 10vh;
+    }
+    .login-container: {
+      background-position: center;
+    }
+
+
+
+
+    .input {
+      height: 10vh;
+    }
+    .buttons {
+      height: 10vh;
+    }
+    .input-form {
+      height: 400px;
+    }
+    .top-nav-bar {
+      height: 5vh;
+    }
+    .footer {
+      height: 5vh;
+    }
+
+/*group*/
+
+    .group {
+      height: 116px;
+    }
+
+    .group-wrapper {
+      width: 100%;
+      background: linear-gradient(black, transparent);
+    }
+  }

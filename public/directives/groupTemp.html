@@ -2,10 +2,10 @@
 
 <div class='group'>
     <div class='toggle' ng-click='toggle()'>
-      <h4>{{group.name}}</h4>
+      <h4>{{group.name}} - {{group.description}}</h4>
     </div>
     <div>
-      <button class='join-btn animated zoomIn'  ng-click='joinGroup(group, group.password)'>Join Group</button>
+      <button class='join-btn'  ng-click='joinGroup(group, group.password)'>Join Group</button>
     </div>
   <!-- <button class='delete' ng-click='deleteGroup(group._id, groups.indexOf(group))'>x</button> -->
 </div>

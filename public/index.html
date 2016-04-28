@@ -10,9 +10,9 @@
   <body ng-controller='mainCtrl'>
     <div class='top-nav-bar'>
 
-        <div class='logo'><img id='nba' src='/images/nba.jpeg'></div>
+        <div class='logo'><img id='nba' src='/images/chat-bubble.png'></div>
 
-      <div class='tab-container animated slideInLeft'>
+      <div class='tab-container'>
         <div class='tabs' ng-repeat='tab in tabsIn' ng-click='' ng-show='loggedIn'><a id='tab-links' ui-sref='{{tab.view}}'>{{tab.name}}</a></div>
         <div class='tabs' ng-repeat='tab in tabsOut' ng-click='' ng-hide='loggedIn'><a id='tab-links' ui-sref='{{tab.view}}'>{{tab.name}}</a></div>
 
@@ -34,7 +34,7 @@
 
       <div class='footer'>
 
-        <div class='logo'><img id='nba' src='/images/nba.jpeg'></div>
+        <div class='logo'><img id='nba' src='/images/chat-bubble.png'></div>
 
 
       <div class='tab-container'>

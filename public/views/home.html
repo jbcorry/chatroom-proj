@@ -1,8 +1,8 @@
 <div class='main-container'>
-<section class='top-home-container animated jello'>
+<section class='top-home-container animated fadeIn'>
 
-<h3>Welcome!</h3>
-<h4>Share ideas, pictures, documents and just about anything privately with your company or groups</h4>
+NorthPoint SLC
+<div class='top-home-text'>Share ideas, pictures, documents and just about anything privately with your company or groups</div>
 <br>
 <br>
 
@@ -11,23 +11,22 @@
 
 
 
-  <div class='middle-home-text animated jello'>
-      This website will allow you to create a user, <br>join or create a group, <br>then chat, share documents, or even share pictures with others without having to worry<br> about who else sees them! <br>
-      It's the private and simple way to communicate with files, pictures and text with anyone!
+  <div class='middle-home-text animated fadeIn'>
+    Login or Signup then join an existing group or create your own group and password.
   </div>
 
 <br>
-  <button class='home-btn animated jello' ui-sref='groups' ng-show='loggedIn'>Find or create a group!</button>
+  <button class='home-btn' ui-sref='groups' ng-show='loggedIn'>Find or create a group!</button>
 
 
-  <div ng-hide='loggedIn' class='animated jello'>
+  <div ng-hide='loggedIn' class='animated fadeIn'>
 
     <h5 class='button-header'>Ready to Start?</h5>
 
 
-          <button class='home-btn' ng-click='' ui-sref='new-user'>Click Here to create a user!</button>
+          <button class='home-btn' ng-click='' ui-sref='new-user'>Create a new user</button>
 
-          <button ng-click='' class='home-btn' ui-sref='login'>Or here if you already have!</button>
+          <button ng-click='' class='home-btn' ui-sref='login'>Login</button>
           <!-- <a ui-sref='{{submit.view}}'><button class='submit-btn'>Submit a file</button></a> -->
 
   </div>
