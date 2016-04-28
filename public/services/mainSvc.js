@@ -42,6 +42,7 @@ angular.module('myApp')
   };
   this.getTabsOut = function() {
     return tabsOut;
+
   };
 
   var groups = [

@@ -62,6 +62,7 @@ angular.module('myApp')
 
   $scope.tabsIn = mainSvc.getTabsIn();
   $scope.tabsOut = mainSvc.getTabsOut();
+
   $scope.submit = {
     name: 'submit',
     view: 'submit'
@@ -77,5 +78,6 @@ $scope.show = true;
 $scope.contactList = mainSvc.getContactList();
 
 $scope.createList = function(){};
+
 
 });
